@@ -17,8 +17,8 @@ import TOs.BoardTO;
 
 public class AlbumBoardDAO {
 	private DataSource dataSource = null;
-//	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
-	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeUpload";
+	private String uploadPath = "C:/Users/kitcoop/Desktop/Git/TeamProject01-DogCatLife/DogCatLife/src/main/webapp/resources/upload";
+//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeUpload";
 	
 	public AlbumBoardDAO() {
 		try {

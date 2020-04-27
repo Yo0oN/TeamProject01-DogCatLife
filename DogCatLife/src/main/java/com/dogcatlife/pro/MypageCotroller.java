@@ -35,9 +35,8 @@ import mail.MailSender;
  */
 @Controller
 public class MypageCotroller {
-//	private String uploadPath = "C:\\Users\\kitcoop\\Desktop\\Git\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
 //	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeUpload";
-	private String uploadPath = "D:\\MyFirstGit\\MyStudy2019.10\\webproject01\\DogCatLife\\src\\main\\webapp\\resources\\upload";
+	private String uploadPath = "C:/Users/kitcoop/Desktop/Git/TeamProject01-DogCatLife/DogCatLife/src/main/webapp/resources/upload";
 	
 	@RequestMapping("/input_password.mysql")
 	public ModelAndView mypage_input_password() {
