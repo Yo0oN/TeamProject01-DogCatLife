@@ -25,7 +25,7 @@ import TOs.BoardTO;
  */
 @Controller
 public class Com_Board_Controller {
-	private String uploadPath = "/var/lib/tomcat8/webapps/resources/upload";
+	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLife/resources/upload";
 //	private String uploadPath = "C:/Users/kitcoop/Desktop/Git/TeamProject01-DogCatLife/DogCatLife/src/main/webapp/resources/upload";
 	@RequestMapping("/com_board_list.mysql")
 	public ModelAndView com_board_list(HttpServletRequest request) {
@@ -231,13 +231,15 @@ public class Com_Board_Controller {
 		return modelAndView;
 	}
 	
-	@RequestMapping("/com_board_comment_modify.mysql")
+	@RequestMapping("/com_board_comment_modify_ok.mysql")
 	public ModelAndView com_board_comment_modify(BoardTO boardTO) {
-		System.out.println("com_board_comment_modify 컨트롤러 호출");
+		System.out.println("com_board_comment_modify_ok 컨트롤러 호출");
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("community_board/com_board_comment_modify");
-		CommunityBoardDAO communityBoardDAO = new CommunityBoardDAO();
+		modelAndView.setViewName("community_board/com_board_comment_modify_ok");
+		int flag = new CommunityBoardDAO().com_board_comment_modify_ok(boardTO);
 
+		modelAndView.addObject("flag", flag);
+		modelAndView.addObject("boardTO", boardTO);
 		return modelAndView;
 	}
 	

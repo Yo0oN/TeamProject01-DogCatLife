@@ -19,7 +19,7 @@ import TOs.NoticeTO;
 public class NoticeDAO {
 	private DataSource dataSource = null;
 //	private String uploadPath = "C:/Users/kitcoop/Desktop/Git/TeamProject01-DogCatLife/DogCatLife/src/main/webapp/resources/upload";
-	private String uploadPath = "/var/lib/tomcat8/webapps/resources/upload";
+	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLife/resources/upload";
 	
 	public NoticeDAO() {
 		try {
@@ -45,10 +45,10 @@ public class NoticeDAO {
 			// 시간이흘렀는가를 한페이지에 보여줄 만큼만 가져온 후 seq로 내림차순
 			String sql = "";
 			if (qseq == null || qseq.equals("0") ) {
-				sql = "select seq, kinds, qseq, content, filename, wdate, subject from questions order by qseq";
+				sql = "select seq, qseq, content, filename, wdate, subject from questions order by qseq";
 				pstmt = conn.prepareStatement(sql);
 			} else {
-				sql = "select seq, kinds, qseq, content, filename, wdate, subject from questions where qseq=?";
+				sql = "select seq, qseq, content, filename, wdate, subject from questions where qseq=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, qseq);
 			}
@@ -58,7 +58,6 @@ public class NoticeDAO {
 				NoticeTO noticeTO = new NoticeTO();
 
 				noticeTO.setSeq(rs.getString("seq"));
-				noticeTO.setKinds(rs.getString("kinds"));
 				noticeTO.setQseq(rs.getString("Qseq"));
 				noticeTO.setContent(rs.getString("content"));
 				noticeTO.setSubject(rs.getString("subject"));

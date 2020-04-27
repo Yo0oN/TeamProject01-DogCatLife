@@ -56,19 +56,6 @@
 			comment = toLists.get(i).getComment().replaceAll("\n", "<br>");
 			cwdate_ori = toLists.get(i).getCwdate_ori();
 
-			/* sbHTML.append("<ul class='list-inline'>");
-			sbHTML.append("<li>작성자 : <span class='text-theme-colored'>" + cwriter + "</span></li>");
-			sbHTML.append("<li>작성일 : <span class='text-theme-colored'>" + cwdate_ori + "</span></li>");
-			if (sess_mseq != null && sess_mseq.equals(cmseq)) {
-				sbHTML.append("<li><a class='comment_modify' cseq='" + cseq + "'><span>수정</span></a></li>");
-				sbHTML.append("<li><a class='comment_delete' cseq='" + cseq + "'><span>삭제</span></a></li>");
-			}
-			sbHTML.append("</ul>");
-			sbHTML.append("<ul class='list-inline>");
-			sbHTML.append("<li class='col-12'><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></li>");
-			sbHTML.append("</ul>");
-			sbHTML.append("<hr>"); */
-			
 			sbHTML.append("<tr>");
 			sbHTML.append("<td>작성자 : <span class='text-theme-colored'>" + cwriter + "</span></td>");
 			sbHTML.append("<td>작성일 : <span class='text-theme-colored'>" + cwdate_ori + "</span></td>");
@@ -82,7 +69,7 @@
 			sbHTML.append("</tr>");
 			
 			sbHTML.append("<tr>");
-			sbHTML.append("<td colspan='5' style='padding-bottom:30px;' cseq='" + cseq + "'><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></td>");
+			sbHTML.append("<td colspan='5' class='comment_view' style='padding-bottom:30px;' cseq='" + cseq + "'><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></td>");
 			sbHTML.append("</tr>");
 		}
 %>
@@ -105,7 +92,11 @@
 <title>DogCatLife</title>
 
 <!-- commoncss -->
-
+<style type="text/css">
+a {
+	cursor:pointer;
+}
+</style>
 
 <!-- Favicon and Touch Icons -->
 <link href="resources/sitedesign/images/favicon.png" rel="shortcut icon"
@@ -169,6 +160,9 @@
 <script type="text/javascript">
 var sess_mseq = <%=sess_mseq%>;
 var sess_nickname = '<%=sess_nickname%>';
+var pseq = '<%=pseq%>';
+var cpage = '<%=cpage%>';
+var seq = '<%=seq%>';
 	$(document).ready(function() {
 		// 게시글 삭제
 		$('#delete').on('click', function() {
@@ -179,12 +173,12 @@ var sess_nickname = '<%=sess_nickname%>';
 		});
 		
 		// 게시글 작성
-		$('#writebtn').on('click', function() {
+		/* $('#writebtn').on('click', function() {
 			if (sess_mseq == null || sess_nickname == null) {
 				alert('게시물을 작성하시려면 로그인을 해주세요.');
 				return false;
 			}
-		});
+		}); */
 
 		// 댓글 입력
 		$('#reply').on('click', function() {
@@ -214,22 +208,54 @@ var sess_nickname = '<%=sess_nickname%>';
 		})
 		
 		// 댓글 수정
-		$('#comment_modify').on('click', function() {
-			alert('수정');
-		})
-
-		// 댓글 수정
 		$('.comment_modify').on( 'click', function() {
 			var addAttr = 'td[cseq=' + $(this).attr('cseq') + ']';
 			var addAttrVal = 'td span[cseq=' + $(this).attr('cseq') + ']';
-			
-			var comment_modify_text = '<td colspan="3"><div class="col-12"><textarea id="comment_text" maxlength="500" style="overflow: hidden;" title="댓글수정">' + $(addAttrVal).html() + '</textarea></div></td>'
-				+ '<td colspan="2"><a id="modifycancel">취소</a><br><a id="comment_modify" class="btn btn-dark btn-flat m-0">댓글 수정</a></td>';
-			
+			var comment_modify_text = '<td id="comment_modify_textarea" colspan="3"><form action="./com_board_comment_modify_ok.mysql" id="commentModifyFrm" method="post"><input type="hidden" name="cseq" value='
+				+ $(this).attr('cseq') + '>'
+				+ '<input type="hidden" name="pseq" value="' + pseq + '" />'
+				+ '<input type="hidden" name="cpage" value="' + cpage + '" />'
+				+ '<input type="hidden" name="seq" value="' + seq +'" />'
+				+ '<input type="hidden" name="cmseq" value="' + sess_mseq + '" />'
+				+ '<input type="hidden" name="cwriter" value="' +sess_nickname + '" />'
+				+ '<textarea id="comment_text" name="comment" maxlength="500" style="width:100%;height:70px" title="댓글수정">'
+				+ $(addAttrVal).text() + '</textarea></form></td>'
+				+ '<td id="comment_modify_button" colspan="2"><a id="modifycancel">취소</a><br><a id="comment_modify" class="btn btn-dark btn-flat mt-10">댓글 수정</a></td>';
+
+			// 기존 댓글수정창 지우기
+			$('#comment_modify_textarea').remove();
+			$('#comment_modify_button').remove();
+			// 원래 있던 댓글 보여주기
+			$('.comment_view').attr('style', 'padding-bottom:30px;');
+			// 댓글 수정창 추가
 			$(addAttr).after(comment_modify_text);
+			// 댓글 안보이게 하기 
 			$(addAttr).attr('style', 'display:none');
+			// 취소버튼 눌리면 수정창없애고 원래댓글보여주기
+			modifycancel();
+			// 수정버튼 눌리면 수정시키기
+			commentmodi();
 		});
+		
 	});
+	// 수정취소
+	var modifycancel = function() {
+		$('#modifycancel').on('click', function() {
+			$('#comment_modify_textarea').remove();
+			$('#comment_modify_button').remove();
+			$('.comment_view').attr('style', 'padding-bottom:30px;');
+		});
+	}
+	// 댓글 수정
+	var commentmodi = function() {
+		$('#comment_modify').on('click', function() {
+			if ($('#comment_text').val().trim() == '') {
+				alert('댓글을 입력해주세요.');
+				return false;
+			}
+			$('#commentModifyFrm').submit();
+		});
+	}
 </script>
 </head>
 <body
@@ -324,9 +350,9 @@ var sess_nickname = '<%=sess_nickname%>';
 
 										<div class="row mt-10 pb-10 border-bottom-gray">
 											<div class="col-sm-12">
-												<a id="writebtn"
+												<%-- <a id="writebtn"
 													href="com_board_write.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq %>"
-													class="btn btn-dark btn-flat m-0">글쓰기</a>
+													class="btn btn-dark btn-flat m-0">글쓰기</a> --%>
 												<a href='com_board_list.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>' class="btn btn-dark btn-flat pull-right m-0">목록</a>
 											</div>
 										</div>

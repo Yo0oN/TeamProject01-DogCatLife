@@ -50,19 +50,22 @@
 			cwriter = toLists.get(i).getCwriter();
 			comment = toLists.get(i).getComment().replaceAll("\n", "<br>");
 			cwdate_ori = toLists.get(i).getCwdate_ori();
-
-			sbHTML.append("<ul class='list-inline'>");
-			sbHTML.append("<li>작성자 : <span class='text-theme-colored'>" + cwriter + "</span></li>");
-			sbHTML.append("<li>작성일 : <span class='text-theme-colored'>" + cwdate_ori + "</span></li>");
+			
+			sbHTML.append("<tr>");
+			sbHTML.append("<td>작성자 : <span class='text-theme-colored'>" + cwriter + "</span></td>");
+			sbHTML.append("<td>작성일 : <span class='text-theme-colored'>" + cwdate_ori + "</span></td>");
+			sbHTML.append("<td><span> </span></th>");
 			if (sess_mseq != null && sess_mseq.equals(cmseq)) {
-				sbHTML.append("<li><a class='comment_modify' cseq='" + cseq + "' style=''><span>수정</span></a></li>");
-				sbHTML.append("<li><a class='comment_delete' cseq='" + cseq + "' ><span>삭제</span></a></li>");
+				sbHTML.append("<td><a class='comment_modify' cseq='" + cseq + "'><span>수정</span></a></td>");
+				sbHTML.append("<td><a class='comment_delete' cseq='" + cseq + "'><span>삭제</span></a></td>");
+			} else {
+				sbHTML.append("<td></td><td></td>");
 			}
-			sbHTML.append("</ul>");
-			sbHTML.append("<ul class='list-inline'>");
-			sbHTML.append("<li><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></li>");
-			sbHTML.append("</ul>");
-			sbHTML.append("<hr>");
+			sbHTML.append("</tr>");
+			
+			sbHTML.append("<tr>");
+			sbHTML.append("<td colspan='5' style='padding-bottom:30px;' cseq='" + cseq + "'><span style='font-size: 14px;' cseq='" + cseq + "'>" + comment + "</span></td>");
+			sbHTML.append("</tr>");
 		}
 		
 		String boardnow1 = "";
@@ -179,12 +182,12 @@ var sess_nickname = '<%=sess_nickname%>';
 		});
 
 		// 게시글 작성
-		$('#writebtn').on('click', function() {
+		/* $('#writebtn').on('click', function() {
 			if (sess_mseq == null || sess_nickname == null) {
 				alert('게시물을 작성하시려면 로그인을 해주세요.');
 				return false;
 			}
-		});
+		}); */
 
 		// 댓글 입력
 		$('#reply').on('click', function() {
@@ -328,9 +331,9 @@ var sess_nickname = '<%=sess_nickname%>';
 
 										<div class="row mt-10 pb-10 border-bottom-gray">
 											<div class="col-sm-12">
-												<a id="writebtn"
+												<%-- <a id="writebtn"
 													href="album_board_write.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>&seq=<%=seq %>"
-													class="btn btn-dark btn-flat m-0">글쓰기</a>
+													class="btn btn-dark btn-flat m-0">글쓰기</a> --%>
 													<a href='album_board_list.mysql?pseq=<%=pseq%>&cpage=<%=cpage%>' class="btn btn-dark btn-flat pull-right m-0">목록</a>
 											</div>
 										</div>
@@ -342,21 +345,20 @@ var sess_nickname = '<%=sess_nickname%>';
 											댓글
 											<%=cmt%></h3>
 									</div>
-									<div class="comments-area">
-										<div class="comment-list pb-10">
-											<%=sbHTML%>
-											<!-- <ul class="list-inline">
-												<li><i class="fa fa-user"></i> <span
-													class="">댓글작성자</span></li>
-												<li><i class="fa fa-calendar"></i> <span
-													class="">2020-04-18 02:24:18</span></li>
-												<li><a href=""><span class="">수정</span></a></li>
-												<li><a href="#" id="delete"><span class="">삭제</span></a></li>
-											</ul>
-											<ul class="list-inline">
-												<li><span style="font-size: 14px;">댓글 내용내용 댓글 내용내용 댓글 내용내용 댓글 내용내용 댓글 내용내용</span></li>
-											</ul>
-											<hr> -->
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="table">
+												<colgroup>
+													<col style='width:20%'>
+													<col style='width:30%'>
+													<col style='width:30%' >
+													<col style='width:10%'>
+													<col style='width:10%'>
+												</colgroup>
+												<tbody>
+													<%=sbHTML%>
+												</tbody>
+											</table>
 										</div>
 									</div>
 									<!-- 댓글작성 -->

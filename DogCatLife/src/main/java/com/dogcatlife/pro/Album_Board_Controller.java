@@ -32,7 +32,7 @@ import TOs.BoardTO;
 @Controller
 public class Album_Board_Controller {
 //	private String uploadPath = "C:/Users/kitcoop/Desktop/Git/TeamProject01-DogCatLife/DogCatLife/src/main/webapp/resources/upload";
-	private String uploadPath = "/var/lib/tomcat8/webapps/resources/upload";
+	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLife/resources/upload";
 	
 	@RequestMapping("/album_board_list.mysql")
 	public ModelAndView album_board_list(HttpServletRequest request) {

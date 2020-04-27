@@ -17,7 +17,7 @@ import TOs.BoardTO;
 
 public class CommunityBoardDAO {
 	private DataSource dataSource = null;
-	private String uploadPath = "/var/lib/tomcat8/webapps/resources/upload";
+	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLife/resources/upload";
 //	private String uploadPath = "C:/Users/kitcoop/Desktop/Git/TeamProject01-DogCatLife/DogCatLife/src/main/webapp/resources/upload";
 	public CommunityBoardDAO() {
 		try {
@@ -595,6 +595,52 @@ public class CommunityBoardDAO {
 					conn.close();
 				} catch (SQLException e) {
 				}
+		}
+		return flag;
+	}
+	
+	public int com_board_comment_modify_ok(BoardTO boardTO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int flag = 1;
+		String oldfilename = "";
+
+		try {
+			conn = dataSource.getConnection();
+			String sql = "update comment_board set comment=?, cwriter=? where cseq=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardTO.getComment());
+			pstmt.setString(2, boardTO.getCwriter());
+			pstmt.setString(3, boardTO.getCseq());
+			int result = pstmt.executeUpdate();
+
+			if (result == 1) {
+				flag = 0;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error : " + e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 		return flag;
 	}

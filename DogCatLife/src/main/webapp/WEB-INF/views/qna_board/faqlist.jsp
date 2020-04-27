@@ -20,7 +20,6 @@
 
 			String seq = noticeTO.getSeq();
 			String qseq = noticeTO.getQseq();
-			String kinds = noticeTO.getKinds();
 			String subject = noticeTO.getSubject();
 			String content = noticeTO.getContent();
 			String wdate = noticeTO.getWdate();
