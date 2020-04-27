@@ -17,8 +17,8 @@ import TOs.BoardTO;
 
 public class CommunityBoardDAO {
 	private DataSource dataSource = null;
-//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeUpload";
-	private String uploadPath = "C:/Users/kitcoop/Desktop/Git/TeamProject01-DogCatLife/DogCatLife/src/main/webapp/resources/upload";
+	private String uploadPath = "/var/lib/tomcat8/webapps/resources/upload";
+//	private String uploadPath = "C:/Users/kitcoop/Desktop/Git/TeamProject01-DogCatLife/DogCatLife/src/main/webapp/resources/upload";
 	public CommunityBoardDAO() {
 		try {
 			Context initCtx = new InitialContext();

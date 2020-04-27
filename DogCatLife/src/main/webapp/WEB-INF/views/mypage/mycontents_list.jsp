@@ -61,10 +61,10 @@
 		
 				sbHTML.append("<tr>");
 
+				sbHTML.append("<th class='text-center'><input type='checkbox' class='check' name='check' value='" + seq + "'></th>");
 				sbHTML.append("<th class='text-center'>" + pseq_kind + "</th>");
 				sbHTML.append("<th class='text-center'>" + seq + "</th>");
-				sbHTML.append("<th class='text-center'><a class='goMycomment' seq='" + seq + "' pseq='" + pseq + "' " + " style='color: black'>" + subject + "</a></th>");
-				/* sbHTML.append("<th class='text-center'><a href='mycontents_view.mysql?cpage=" + cpage + "&selected=" + selected + "&seq=" + seq + "' style='color: black'>" + subject + "</a></th>"); */
+				sbHTML.append("<th class='text-center'><a class='goMycontent' seq='" + seq + "' pseq='" + pseq + "' " + " style='color: black'>" + subject + "</a></th>");
 				sbHTML.append("<th class='text-center'>" + wdate + "</th>");
 				sbHTML.append("<th class='text-center'>" + cmt + "</th>");
 				sbHTML.append("<th class='text-center'>" + hit + "</th>");
@@ -164,7 +164,7 @@ a {
 			var selected = $('#searchField option:selected').val()
 			location.href='mycontents_list.mysql?cpage=1&selected=' + selected;
 		});
-		$('.goMycomment').on('click', function() {
+		$('.goMycontent').on('click', function() {
 			var href= "";
 			var seq = $(this).attr('seq');
 			var pseq = $(this).attr('pseq');
@@ -175,6 +175,29 @@ a {
 				href = "album_board_view.mysql?pseq=" + pseq + "&cpage=1&seq=" + seq;
 			}
 			window.open(href,'winopen','');
+		});
+		// 게시글 선택 삭제
+		$('#delete').on('click', function() {
+			if ($('.check:checked').length == 0) {
+				alert('삭제할 게시물을 선택해주세요.');
+				return false;
+			}
+			if (confirm('삭제하시겠습니까?')) {
+				$('#checkfrm').submit();
+			} else {
+			}
+		});
+		// 전체선택 해제
+		$('#selectall').on('click', function() {
+			if ($(this).is(':checked')) {
+				$('.check').each(function() {
+					this.checked = true;
+				});
+			} else {
+				$('.check').each(function() {
+					this.checked = false;
+				});
+			}
 		});
 	});
 </script>
@@ -258,37 +281,46 @@ a {
 											</div>
 											<div class="col-md-12">
 												<div class="table-responsive">
-													<table
-														class="table table-striped table-hover table-bordered">
-														<colgroup>
-															<col style="width: 7%;">
-															<col style="width: 7%;">
-															<col style="width: 56%;">
-															<col style="width: 15%;">
-															<col style="width: 7%;">
-															<col style="width: 7%;">
-														</colgroup>
-														<thead>
-															<tr class="bg-theme-colored" data-text-color="white">
-																<th class="text-center">게시판</th>
-																<th class="text-center">No</th>
-																<th class="text-center">제목</th>
-																<th class="text-center">작성일</th>
-																<th class="text-center">댓글</th>
-																<th class="text-center">조회</th>
-															</tr>
-														</thead>
-														<tbody>
-														<%= sbHTML %>
-															<!-- <tr>
-																<th class="text-center">No</th>
-																<th class="text-center">제목</th>
-																<th class="text-center">작성일</th>
-																<th class="text-center">댓글</th>
-																<th class="text-center">조회</th>
-															</tr> -->
-														</tbody>
-													</table>
+													<form action="mycontents_delete_ok.mysql" id="checkfrm" name="checkfrm" method="post">
+														<input type="hidden" name="mseq" value="<%=sess_mseq%>">
+														<table
+															class="table table-striped table-hover table-bordered">
+															<colgroup>
+																<col style="width: 3%;">
+																<col style="width: 7%;">
+																<col style="width: 7%;">
+																<col style="width: 56%;">
+																<col style="width: 15%;">
+																<col style="width: 7%;">
+																<col style="width: 7%;">
+															</colgroup>
+															<thead>
+																<tr class="bg-theme-colored" data-text-color="white">
+																	<th class="text-center"><input type="checkbox" id="selectall"></th>
+																	<th class="text-center">게시판</th>
+																	<th class="text-center">No</th>
+																	<th class="text-center">제목</th>
+																	<th class="text-center">작성일</th>
+																	<th class="text-center">댓글</th>
+																	<th class="text-center">조회</th>
+																</tr>
+															</thead>
+															<tbody>
+															<%= sbHTML %>
+																<!-- <tr>
+																	<th class="text-center">No</th>
+																	<th class="text-center">제목</th>
+																	<th class="text-center">작성일</th>
+																	<th class="text-center">댓글</th>
+																	<th class="text-center">조회</th>
+																</tr> -->
+															</tbody>
+														</table>
+													</form>
+												</div>
+												<div>
+													<!-- <button id="selectall" class="btn btn-dark btn-flat btn-small mt-15" type="submit">전체 선택</button> -->
+													<button id="delete" class="btn btn-dark btn-flat btn-small mt-15" type="submit">삭제</button>
 												</div>
 
 												<!-- 페이지 이동버튼 -->

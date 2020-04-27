@@ -26,18 +26,22 @@
 			String wdate = noticeTO.getWdate();
 			String filename = noticeTO.getFilename();
 			
-			sbHTML.append("<div id=\"accordion1\" class=\"panel-group accordion\">");
+			sbHTML.append("<div id='accordion" + i + "' class='panel-group accordion'>");
 			
-			sbHTML.append("<div class=\"panel\">");
-			sbHTML.append("	<div class=\"panel-title\">");
-			sbHTML.append("		<a data-parent=\"#accordion1\" data-toggle=\"collapse\" href=\"#accordion_1\" aria-expanded=\"false\">");
-			sbHTML.append("			<span class=\"open-sub\"></span> <strong>"+subject+"</strong>");
-			sbHTML.append("		</a>");
-			sbHTML.append("	</div>");
-			sbHTML.append("	<div id=\"accordion_1\" class=\"panel-collapse collapse\" role=\"tablist\" aria-expanded=\"true\">");
-			sbHTML.append("		<div class=\"panel-content\">"+content+"</div>");
-			sbHTML.append("	</div>");
+			sbHTML.append("<div class='panel'>");
+			
+			sbHTML.append("<div class='panel-title'>");
+			sbHTML.append("<a data-parent='#accordion" + i + "' data-toggle='collapse' href='#accordion_" + i + "' aria-expanded='false'>");
+			sbHTML.append("<span class='open-sub'></span> <strong>"+subject+"</strong>");
+			sbHTML.append("</a>");
 			sbHTML.append("</div>");
+			
+			sbHTML.append("<div id='accordion_" + i + "' class='panel-collapse collapse' role='tablist' aria-expanded='true'>");
+			sbHTML.append("<div class='panel-content'>"+content+"</div>");
+			sbHTML.append("</div>");
+			
+			sbHTML.append("</div>");
+			
 			sbHTML.append("</div>");
 		}
 		

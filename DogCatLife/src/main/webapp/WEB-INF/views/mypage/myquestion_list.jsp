@@ -147,7 +147,7 @@
 	src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script type="text/javascript">
 	var sess_mseq = <%= sess_mseq %>;
-	var sess_nickname = <%= sess_nickname %>
+	var sess_nickname = '<%= sess_nickname %>';
 	$(document).ready(function() {
 		$('#writebtn').on('click', function() {
 			if(sess_mseq == null || sess_nickname == null) {

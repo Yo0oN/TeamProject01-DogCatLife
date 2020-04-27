@@ -18,8 +18,8 @@ import TOs.UserTO;
 import mail.MailSender;
 
 public class MypageDAO {
-//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeUpload";
-	private String uploadPath = "C:/Users/kitcoop/Desktop/Git/TeamProject01-DogCatLife/DogCatLife/src/main/webapp/resources/upload";
+	private String uploadPath = "/var/lib/tomcat8/webapps/resources/upload";
+//	private String uploadPath = "C:/Users/kitcoop/Desktop/Git/TeamProject01-DogCatLife/DogCatLife/src/main/webapp/resources/upload";
 	private DataSource dataSource = null;
 	
 	public MypageDAO() {
@@ -671,6 +671,11 @@ public class MypageDAO {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, userTO.getMseq());
 				pstmt.executeUpdate();
+				// usersecession + 1
+				sql = "insert into usersecession values(?, now())";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userTO.getMseq());
+				pstmt.executeUpdate();
 				flag = 0;
 			} else {
 				flag = 1;
@@ -680,6 +685,65 @@ public class MypageDAO {
 		} finally {
 			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
 			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+		}
+	
+		return flag;
+	}
+
+	public int mycontents_delete_ok(String check, String mseq) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int flag = 1;
+		try {
+			conn = dataSource.getConnection();
+			String sql = "delete from comment_board where seq in (" + check + ")";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.executeUpdate();
+			
+			sql = "delete from board where mseq=? and seq in (" + check + ")";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mseq);
+			int result = pstmt.executeUpdate();
+			
+			if(result != 0) {
+				System.out.println(1);
+				flag = 0;
+			}
+		} catch(SQLException e) {
+			System.out.println("[에러] : " + e.getMessage());
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+			if(rs != null) try { rs.close(); } catch(SQLException e) {}
+		}
+	
+		return flag;
+	}
+	
+	public int mycomment_delete_ok(String check, String mseq) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int flag = 1;
+		try {
+			conn = dataSource.getConnection();
+			String sql = "delete from comment_board where cmseq=? and cseq in (" + check + ")";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mseq);
+			int result = pstmt.executeUpdate();
+
+			if(result != 0) {
+				flag = 0;
+			}
+		} catch(SQLException e) {
+			System.out.println("[에러] : " + e.getMessage());
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+			if(rs != null) try { rs.close(); } catch(SQLException e) {}
 		}
 	
 		return flag;

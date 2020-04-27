@@ -35,8 +35,8 @@ import mail.MailSender;
  */
 @Controller
 public class MypageCotroller {
-//	private String uploadPath = "/var/lib/tomcat8/webapps/DogCatLifeUpload";
-	private String uploadPath = "C:/Users/kitcoop/Desktop/Git/TeamProject01-DogCatLife/DogCatLife/src/main/webapp/resources/upload";
+	private String uploadPath = "/var/lib/tomcat8/webapps/resources/upload";
+//	private String uploadPath = "C:/Users/kitcoop/Desktop/Git/TeamProject01-DogCatLife/DogCatLife/src/main/webapp/resources/upload";
 	
 	@RequestMapping("/input_password.mysql")
 	public ModelAndView mypage_input_password() {
@@ -312,6 +312,35 @@ public class MypageCotroller {
 		modelAndView.setViewName("mypage/leave_ok");
 
 		int flag = new MypageDAO().leave_ok(userTO);
+		
+		modelAndView.addObject("flag", flag);
+		return modelAndView;
+	}
+
+	@RequestMapping("/mycontents_delete_ok.mysql")
+	public ModelAndView mycontents_delete_ok(HttpServletRequest request) {
+		System.out.println("mycontents_delete_ok 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mypage/mycontents_delete_ok");
+		
+		String mseq = request.getParameter("mseq");
+		String check = String.join(",", request.getParameterValues("check"));
+		int flag = new MypageDAO().mycontents_delete_ok(check, mseq);
+		
+		modelAndView.addObject("flag", flag);
+		return modelAndView;
+	}
+	
+	@RequestMapping("/mycomment_delete_ok.mysql")
+	public ModelAndView mycomment_delete_ok(HttpServletRequest request) {
+		System.out.println("mycomment_delete_ok 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mypage/mycomment_delete_ok");
+		
+		String mseq = request.getParameter("mseq");
+		String check = String.join(",", request.getParameterValues("check"));
+		
+		int flag = new MypageDAO().mycomment_delete_ok(check, mseq);
 		
 		modelAndView.addObject("flag", flag);
 		return modelAndView;

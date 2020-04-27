@@ -372,9 +372,7 @@ var sess_nickname = '<%=sess_nickname%>';
 
 											<div class="form-group">
 												<label for="rqms_content">댓글 작성</label>
-												<textarea id="comment" name="comment"
-													class="form-control required" rows="4">
-												</textarea>
+												<textarea id="comment" name="comment" class="form-control required" rows="4"></textarea>
 											</div>
 
 										</form>
