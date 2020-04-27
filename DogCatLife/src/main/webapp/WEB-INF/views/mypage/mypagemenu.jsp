@@ -13,6 +13,7 @@
 					<li><a href="mycontents_list.mysql">내가쓴 글</a></li>
 					<li><a href="mycomment_list.mysql">내가 쓴 댓글</a></li>
 					<li><a href="myquestion_list.mysql">1 대 1 질문</a></li>
+					<li><a href="leave.mysql">회원 탈퇴</a></li>
 				</ul>
 			</div>
 		</div>

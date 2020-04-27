@@ -296,4 +296,25 @@ public class MypageCotroller {
 		
 		return modelAndView;
 	}
+
+	@RequestMapping("/leave.mysql")
+	public ModelAndView leave(HttpServletRequest request) {
+		System.out.println("leave 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mypage/leave");
+		
+		return modelAndView;
+	}
+	
+	@RequestMapping("/leave_ok.mysql")
+	public ModelAndView leave_ok(UserTO userTO) {
+		System.out.println("leave 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("mypage/leave_ok");
+
+		int flag = new MypageDAO().leave_ok(userTO);
+		
+		modelAndView.addObject("flag", flag);
+		return modelAndView;
+	}
 }

@@ -623,4 +623,66 @@ public class MypageDAO {
 		}
 		return flag;
 	}
+
+	public int leave_ok(UserTO userTO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int flag = 2;
+		try {
+			conn = dataSource.getConnection();
+			String sql = "";
+			// ID, 비밀번호 확인
+			sql = "select mseq from user where id=? and password=? and mseq=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userTO.getId());
+			pstmt.setString(2, userTO.getPassword());
+			pstmt.setString(3, userTO.getMseq());
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				// mypage 질문 답변 삭제
+				sql = "delete from personal_answers where seq = any (select seq from personal_question where mseq=?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userTO.getMseq());
+				pstmt.executeUpdate();
+				// mypage 질문 글 삭제
+				sql = "delete from personal_question where mseq=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userTO.getMseq());
+				pstmt.executeUpdate();
+				// 댓글 삭제
+				sql = "delete from comment_board where cmseq=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userTO.getMseq());
+				pstmt.executeUpdate();
+				// 게시글에 있는 댓글 삭제
+				sql = "delete from comment_board where seq = any (select seq from board where mseq=?)";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userTO.getMseq());
+				pstmt.executeUpdate();
+				// 게시글 삭제
+				sql = "delete from board where mseq=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userTO.getMseq());
+				pstmt.executeUpdate();
+				// user 삭제
+				sql = "delete from user where mseq=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, userTO.getMseq());
+				pstmt.executeUpdate();
+				flag = 0;
+			} else {
+				flag = 1;
+			}
+		} catch(SQLException e) {
+			System.out.println("[에러] : " + e.getMessage());
+		} finally {
+			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+			if(conn != null) try { conn.close(); } catch(SQLException e) {}
+		}
+	
+		return flag;
+	}
 }
