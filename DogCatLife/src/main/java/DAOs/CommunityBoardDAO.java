@@ -419,7 +419,7 @@ public class CommunityBoardDAO {
 
 			// 파일이 바뀌지 않았다면 파일수정안함
 			if (boardTO.getFilename_ori().equals("")) {
-				sql = "update board set subject=?, content=? where seq=?";
+				sql = "update board set subject=?, content=?, wdate_mode=now() where seq=?";
 
 				pstmt = conn.prepareStatement(sql);
 
@@ -605,7 +605,6 @@ public class CommunityBoardDAO {
 		ResultSet rs = null;
 
 		int flag = 1;
-		String oldfilename = "";
 
 		try {
 			conn = dataSource.getConnection();

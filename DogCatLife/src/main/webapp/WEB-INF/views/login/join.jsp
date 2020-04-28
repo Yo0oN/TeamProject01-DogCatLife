@@ -208,8 +208,7 @@
 			},
 			type : 'post',
 			success : function(data) {
-				
-				if (data == "1") {
+				if (data == 1) {
 					$('#idfocus').html('<p style="color:red">이미 사용중인 ID 입니다.</p>');
 					usedid = false;
 				} else {

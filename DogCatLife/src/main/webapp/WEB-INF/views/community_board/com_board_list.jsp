@@ -161,7 +161,7 @@ a {
 	var sess_nickname = '<%= sess_nickname %>';
 	$(document).ready(function() {
 		$('#writebtn').on('click', function() {
-			if(sess_mseq == null || sess_nickname == null) {
+			if(sess_mseq == null || sess_nickname == null || sess_mseq == "null") {
 				alert('글을 작성하시려면 로그인을 해주세요.');
 				return false;
 			}
@@ -276,8 +276,8 @@ a {
 												<!-- 글쓰기버튼 -->
 												<div class="row">
 													<div class="col-sm-12">
-														<a id="writebtn" href="./com_board_write.mysql?pseq=<%=pseq%>">
-															<button type="button"
+														<a href="./com_board_write.mysql?pseq=<%=pseq%>">
+															<button type="button" id="writebtn"
 																class="btn btn-dark btn-flat pull-right m-0">글쓰기</button>
 														</a>
 													</div>

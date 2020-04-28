@@ -203,9 +203,9 @@ var seq = '<%=seq%>';
 		});
 		
 		// 댓글 수정 취소
-		$('#modifycancel').on('click', function(){
+		/* $('#modifycancel').on('click', function(){
 			alert(취소);
-		})
+		}) */
 		
 		// 댓글 수정
 		$('.comment_modify').on( 'click', function() {

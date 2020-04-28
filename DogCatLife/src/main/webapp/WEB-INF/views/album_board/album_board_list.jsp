@@ -53,6 +53,7 @@
 			String hit = boardTO.getHit();
 			String filename = boardTO.getFilename_new();
 			String countComment = boardTO.getCmt();
+			String cmt = boardTO.getCmt();
 
 			sbHTML.append("<div class='gallery-item branding'>");
 			sbHTML.append("<div class='thumb'>");
@@ -72,7 +73,7 @@
 			sbHTML.append("</h5>");
 			sbHTML.append("<span class='category'>");
 			sbHTML.append("<span>");
-			sbHTML.append("<a href='#'>" + writer + " | " + wdate + " | " + countComment + "</a>");
+			sbHTML.append("<a href='#'>" + writer + " | " + wdate + " | " + hit + " | " + cmt + "</a>");
 			sbHTML.append("</span>");
 			sbHTML.append("</span>");
 			sbHTML.append("</div>");
@@ -410,33 +411,5 @@
 	<!-- soledot -->
 	<script src="resources/soledot/js/fo/soledot.js"></script>
 
-	<script type="text/javascript">
-		function dataList() {
-			$.soledot.move('insuranceboardarticlelist.sd');
-		}
-
-		function dataRowSize() {
-			$('#s_pagenum').val(1);
-			$.soledot.submit('', 'insuranceboardarticlelist.sd');
-		}
-
-		function dataSearch() {
-
-			var $searchField = $('#searchField');
-			var $searchWord = $('#searchWord');
-			if ('' != $searchWord.val() && '' == $searchField.val()) {
-				failNotify('검색 분류를 선택해주십시오.');
-				return;
-			}
-
-			$('#s_pagenum').val(1);
-			$.soledot.submit('', 'insuranceboardarticlelist.sd');
-		}
-
-		function dataView(isbda_seq) {
-			$.soledot.submit('', '/community/fo/kyobo/' + isbda_seq
-					+ '/insuranceboardarticleview.sd');
-		}
-	</script>
 </body>
 </html>

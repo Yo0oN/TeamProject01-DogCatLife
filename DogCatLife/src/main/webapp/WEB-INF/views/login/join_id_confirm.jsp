@@ -3,4 +3,5 @@
 <%
 	int flag = (Integer) request.getAttribute("flag");
 	out.println(flag);
+	System.out.println(flag);
 %>

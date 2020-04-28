@@ -232,7 +232,7 @@ public class Com_Board_Controller {
 	}
 	
 	@RequestMapping("/com_board_comment_modify_ok.mysql")
-	public ModelAndView com_board_comment_modify(BoardTO boardTO) {
+	public ModelAndView com_board_comment_modify_ok(BoardTO boardTO) {
 		System.out.println("com_board_comment_modify_ok 컨트롤러 호출");
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("community_board/com_board_comment_modify_ok");

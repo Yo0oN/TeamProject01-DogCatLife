@@ -293,7 +293,7 @@
 											</div>
 										</div>
 									</div>
-									<form action="#" id="frm" name="frm" method="post">
+									<!-- <form action="#" id="frm" name="frm" method="post">
 										<input id="s_pagenum" name="s_pagenum" type="hidden" value="1" />
 										<div class="row">
 											<div class="form-group col-md-4">
@@ -314,7 +314,7 @@
 													class="fa fa-search"></i> 검색</a>
 											</div>
 										</div>
-									</form>
+									</form> -->
 								</div>
 							</div>
 						</div>
@@ -343,33 +343,5 @@
 	<!-- soledot -->
 	<script src="resources/soledot/js/fo/soledot.js"></script>
 
-	<script type="text/javascript">
-		function dataList() {
-			$.soledot.move('insuranceboardarticlelist.sd');
-		}
-
-		function dataRowSize() {
-			$('#s_pagenum').val(1);
-			$.soledot.submit('', 'insuranceboardarticlelist.sd');
-		}
-
-		function dataSearch() {
-
-			var $searchField = $('#searchField');
-			var $searchWord = $('#searchWord');
-			if ('' != $searchWord.val() && '' == $searchField.val()) {
-				failNotify('검색 분류를 선택해주십시오.');
-				return;
-			}
-
-			$('#s_pagenum').val(1);
-			$.soledot.submit('', 'insuranceboardarticlelist.sd');
-		}
-
-		function dataView(isbda_seq) {
-			$.soledot.submit('', '/community/fo/kyobo/' + isbda_seq
-					+ '/insuranceboardarticleview.sd');
-		}
-	</script>
 </body>
 </html>

@@ -80,4 +80,13 @@ public class HomeController {
 		modelAndView.setViewName("adoption_board/padoption_board_view");
 		return modelAndView;
 	}
+	
+	@RequestMapping("/test.mysql")
+	public ModelAndView test(HttpServletRequest request) {
+		System.out.println("test 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		AlbumBoardDAO albumBoardDAO = new AlbumBoardDAO();
+		modelAndView.setViewName("test/test");
+		return modelAndView;
+	}
 }

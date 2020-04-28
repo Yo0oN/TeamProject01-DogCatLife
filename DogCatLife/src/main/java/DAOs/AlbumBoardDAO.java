@@ -326,6 +326,11 @@ public class AlbumBoardDAO {
 			int result = pstmt.executeUpdate();
 
 			if (result == 1) {
+				sql = "update board set cmt=cmt+1 where seq=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, boardTO.getSeq());
+				pstmt.executeUpdate();
+				
 				flag = 0;
 			}
 
@@ -562,6 +567,10 @@ public class AlbumBoardDAO {
 			int result = pstmt.executeUpdate();
 			
 			if (result == 1) {
+				sql = "update board set cmt=cmt-1 where seq=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, boardTO.getSeq());
+				pstmt.executeUpdate();
 				flag = 0;
 			}
 		} catch (SQLException e) {
@@ -583,6 +592,51 @@ public class AlbumBoardDAO {
 					conn.close();
 				} catch (SQLException e) {
 				}
+		}
+		return flag;
+	}
+
+	public int album_board_comment_modify_ok(BoardTO boardTO) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		int flag = 1;
+
+		try {
+			conn = dataSource.getConnection();
+			String sql = "update comment_board set comment=?, cwriter=?, cwdate_mod=now() where cseq=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardTO.getComment());
+			pstmt.setString(2, boardTO.getCwriter());
+			pstmt.setString(3, boardTO.getCseq());
+			int result = pstmt.executeUpdate();
+
+			if (result == 1) {
+				flag = 0;
+			}
+
+		} catch (SQLException e) {
+			System.out.println("error : " + e.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+				}
+			}
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+				}
+			}
 		}
 		return flag;
 	}

@@ -235,14 +235,16 @@ public class Album_Board_Controller {
 		return modelAndView;
 	}
 
-	@RequestMapping("/album_board_comment_modify.mysql")
-	public ModelAndView album_board_comment_modify(BoardTO boardTO) {
-		System.out.println("album_board_comment_modify 컨트롤러 호출");
+	@RequestMapping("/album_board_comment_modify_ok.mysql")
+	public ModelAndView album_board_comment_modify_ok(BoardTO boardTO) {
+		System.out.println("album_board_comment_modify_ok 컨트롤러 호출");
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("album_board/album_board_comment_modify");
+		modelAndView.setViewName("album_board/album_board_comment_modify_ok");
 
-		AlbumBoardDAO albumBoardDAO = new AlbumBoardDAO();
+		int flag = new AlbumBoardDAO().album_board_comment_modify_ok(boardTO);
 
+		modelAndView.addObject("flag", flag);
+		modelAndView.addObject("boardTO", boardTO);
 		return modelAndView;
 	}
 	
