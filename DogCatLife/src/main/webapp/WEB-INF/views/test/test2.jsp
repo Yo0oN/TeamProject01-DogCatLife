@@ -74,26 +74,36 @@
 	Highcharts.chart('container', {
 	
 	    title: {
-	        text: '가입 / 탈퇴 통계'
+	        text: '글 / 댓글 통계'
 	    },
 	
-	    subtitle: {
+	    /* subtitle: {
 	        text: '부제목'
-	    },
+	    }, */
 
 	    // y축 제목, 단위 설정, 배경
-	    yAxis: {
+	    yAxis: [{
 	        title: {
-	            text: ''
+	            text: '게시물 수'
 	        },
 	        labels: {
 	        	formatter: function() {
-	        		return this.value + ' 명';
-	        		// return this.value + ' %';
+	        		return '게시물 : ' + this.value + ' 개';
 	        	}
 	        },
 	        gridLineWidth: 1
-	    },
+	    }, {
+	        title: {
+	            text: '댓글 수'
+	        },
+	        labels: {
+	        	formatter: function() {
+	        		return '댓글 : ' + this.value + ' 개';
+	        	}
+	        },
+	        gridLineWidth: 1,
+	        opposite: true
+	    }],
 	
 	    xAxis: {
 	        accessibility: {
@@ -117,10 +127,12 @@
 	    },
 	
 	    series: [{
-	        name: '가입',
+	    	yAxis: 0,
+	        name: '글',
 	        data: [<%=joincountlist.get(0)%>, <%=joincountlist.get(1)%>, <%=joincountlist.get(2)%>, <%=joincountlist.get(3)%>, <%=joincountlist.get(4)%>, <%=joincountlist.get(5)%>, <%=joincountlist.get(6)%>]
 	    }, {
-	        name: '탈퇴',
+	    	yAxis: 1,
+	        name: '댓글',
 	        data: [<%=leavecountlist.get(0)%>, <%=leavecountlist.get(1)%>, <%=leavecountlist.get(2)%>, <%=leavecountlist.get(3)%>, <%=leavecountlist.get(4)%>, <%=leavecountlist.get(5)%>, <%=leavecountlist.get(6)%>]
 	    } ],
 	

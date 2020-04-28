@@ -1,7 +1,9 @@
 package com.dogcatlife.pro;
 
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import DAOs.AlbumBoardDAO;
 import DAOs.CommunityBoardDAO;
+import DAOs.Test;
 import TOs.BoardListsTO;
 import TOs.BoardTO;
 
@@ -85,8 +88,23 @@ public class HomeController {
 	public ModelAndView test(HttpServletRequest request) {
 		System.out.println("test 컨트롤러 호출");
 		ModelAndView modelAndView = new ModelAndView();
-		AlbumBoardDAO albumBoardDAO = new AlbumBoardDAO();
 		modelAndView.setViewName("test/test");
+		
+		ArrayList<ArrayList> list = new Test().getUserData();
+		
+		modelAndView.addObject("list", list);
+		return modelAndView;
+	}
+	
+	@RequestMapping("/test2.mysql")
+	public ModelAndView test2(HttpServletRequest request) {
+		System.out.println("test2 컨트롤러 호출");
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("test/test2");
+		
+		ArrayList<ArrayList> list = new Test().getConData();
+		
+		modelAndView.addObject("list", list);
 		return modelAndView;
 	}
 }
