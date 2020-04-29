@@ -7,7 +7,35 @@ public class PersonalQTO {
 	private String content;
 	private String wdate;
 	private String filename;
+	private String nickname;
+	private String filename_ori;
+	private String filename_new;
+	private String mseq;
 	
+	public String getMseq() {
+		return mseq;
+	}
+	public void setMseq(String mseq) {
+		this.mseq = mseq;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getFilename_ori() {
+		return filename_ori;
+	}
+	public void setFilename_ori(String filename_ori) {
+		this.filename_ori = filename_ori;
+	}
+	public String getFilename_new() {
+		return filename_new;
+	}
+	public void setFilename_new(String filename_new) {
+		this.filename_new = filename_new;
+	}
 	public String getSeq() {
 		return seq;
 	}

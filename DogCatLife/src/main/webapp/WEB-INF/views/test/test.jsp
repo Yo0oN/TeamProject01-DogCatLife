@@ -47,11 +47,11 @@
 	}
 
 </style>
-<script src="https://code.highcharts.com/highcharts.js"> </script>
-<script src="resources/chart/code/modules/accessibility.js"></script>
-<script src="resources/chart/code/modules/series-label.js"></script>
-<script src="resources/chart/code/modules/exporting.js"></script>
-<script src="resources/chart/code/modules/export-data.js"></script>
+<script src="../../code/highcharts.js"></script>
+<script src="../../code/modules/series-label.js"></script>
+<script src="../../code/modules/exporting.js"></script>
+<script src="../../code/modules/export-data.js"></script>
+<script src="../../code/modules/accessibility.js"></script>
 
 <!--[if lt IE 9]>
 <script src="https://code.highcharts.com/modules/oldie-polyfills.js"></script>

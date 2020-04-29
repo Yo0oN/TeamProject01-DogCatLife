@@ -7,7 +7,14 @@ public class QuestionsTO {
 	private String content;
 	private String filename;
 	private String wdate;
-	
+	private String subject;
+
+	public String getSubject() {
+		return subject;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
 	public String getSeq() {
 		return seq;
 	}

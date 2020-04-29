@@ -84,27 +84,22 @@ public class HomeController {
 		return modelAndView;
 	}
 	
-	@RequestMapping("/test.mysql")
-	public ModelAndView test(HttpServletRequest request) {
-		System.out.println("test 컨트롤러 호출");
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("test/test");
-		
-		ArrayList<ArrayList> list = new Test().getUserData();
-		
-		modelAndView.addObject("list", list);
-		return modelAndView;
-	}
-	
-	@RequestMapping("/test2.mysql")
-	public ModelAndView test2(HttpServletRequest request) {
-		System.out.println("test2 컨트롤러 호출");
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("test/test2");
-		
-		ArrayList<ArrayList> list = new Test().getConData();
-		
-		modelAndView.addObject("list", list);
-		return modelAndView;
-	}
+	/*
+	 * @RequestMapping("/test.mysql") public ModelAndView test(HttpServletRequest
+	 * request) { System.out.println("test 컨트롤러 호출"); ModelAndView modelAndView =
+	 * new ModelAndView(); modelAndView.setViewName("test/test");
+	 * 
+	 * ArrayList<ArrayList> list = new Test().getUserData();
+	 * 
+	 * modelAndView.addObject("list", list); return modelAndView; }
+	 * 
+	 * @RequestMapping("/test2.mysql") public ModelAndView test2(HttpServletRequest
+	 * request) { System.out.println("test2 컨트롤러 호출"); ModelAndView modelAndView =
+	 * new ModelAndView(); modelAndView.setViewName("test/test2");
+	 * 
+	 * ArrayList<ArrayList> list = new Test().getConData();
+	 * 
+	 * modelAndView.addObject("list", list); return modelAndView; }
+	 */
+
 }
