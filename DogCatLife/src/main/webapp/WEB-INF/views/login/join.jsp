@@ -380,7 +380,7 @@
 		}
 		var confirmnumber = $('#confirm').val().trim();
 		var realnumber = $('#confirmbtn2').attr('num').trim();
-		alert(confirmnumber + ":" + realnumber);
+		// alert(confirmnumber + ":" + realnumber);
 		if (confirmnumber == realnumber) {
 			alert('인증 되었습니다.');
 			$('#confirmfocus').html('<p style="color:blue">인증 완료</p>')

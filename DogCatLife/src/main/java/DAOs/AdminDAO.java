@@ -2816,132 +2816,100 @@ public class AdminDAO {
 		return qnaListsTO;
 	}
 	
-	public int qnaDelete(String seq) {
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int flag = 2;
-		int flagQnA = 0;
-		try {
-			
-			conn = dataSource.getConnection();
-			
-			//질문인지 답변인지 확인
-			String sql = "select seq from personal_question where seq=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, seq);
-				
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				flagQnA = 1;
-			}
-			//질문이 아닐시
-			if(flagQnA == 0) {
-				sql = "select aseq from personal_answers where aseq=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, seq);
-				
-				rs = pstmt.executeQuery();
-				while(rs.next()) {
-					flagQnA = 2;
-				}
-			}
-			
-			int result = 0;
-			
-			if(flagQnA == 1) {
-				
-				sql = "delete from personal_answers where seq=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, seq);
-				result = pstmt.executeUpdate();
-				
-				sql = "delete from personal_question where seq=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, seq);
-				
-				result = pstmt.executeUpdate();
-			}else if(flagQnA == 2){
-				sql = "delete from personal_answers where aseq=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, seq);
-				
-				result = pstmt.executeUpdate();
-			}
-			if(result == 1) {
-				flag = 0;
-			}else {
-				flag = 1;
-			}
-			
-		} catch(SQLException e) {
-			System.out.println("[�뿉�윭] : " + e.getMessage());
-		} finally {
-			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
-			if(conn != null) try { conn.close(); } catch(SQLException e) {}
-		}
-		return flag;	
-	}
-	
-	public int qnaMultiDelete(String seq) {
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		int flag = 0;
-		int flagQnA = 0;
-		try {
-			String[] seqarr = seq.split(",");
-			conn = dataSource.getConnection();
-			for(int i =0; i<seqarr.length;i++) {
-				
-				//질문인지 답변인지 확인
-				String sql = "select seq from personal_question where seq=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, seq);
-					
-				rs = pstmt.executeQuery();
-				
-				while(rs.next()) {
-					flagQnA = 1;
-				}
-				//질문이 아닐시
-				if(flagQnA == 0) {
-					sql = "select aseq  from personal_answers where aseq=?";
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1, seq);
-					
-					rs = pstmt.executeQuery();
-					while(rs.next()) {
-						flagQnA = 2;
-					}
-				}
-				
-				if(flagQnA == 1) {
-					sql = "delete from personal_question where seq=?";
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1, seq);
-					
-					flag += pstmt.executeUpdate();
-				}else if(flagQnA == 2){
-					sql = "delete from personal_answers where aseq=?";
-					pstmt = conn.prepareStatement(sql);
-					pstmt.setString(1, seq);
-					
-					flag += pstmt.executeUpdate();
-				}
-				
-			}
-		} catch(SQLException e) {
-			System.out.println("[�뿉�윭] : " + e.getMessage());
-		} finally {
-			if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
-			if(conn != null) try { conn.close(); } catch(SQLException e) {}
-		}
-		return flag;	
-	}
+	   public int qnaDelete(String seq) {
+		      
+		      Connection conn = null;
+		      PreparedStatement pstmt = null;
+		      
+		      int flag = 2;
+		      
+		      try {
+		         
+		         conn = dataSource.getConnection();
+		         String sql = "";
+		         
+		         int result = 0;
+		         
+		         if(seq.startsWith("Q")) {
+		            seq = seq.replace("Q","");
+		            sql = "delete from personal_answers where seq=?";
+		            pstmt = conn.prepareStatement(sql);
+		            pstmt.setString(1, seq);
+		            result = pstmt.executeUpdate();
+		            
+		            sql = "delete from personal_question where seq=?";
+		            pstmt = conn.prepareStatement(sql);
+		            pstmt.setString(1, seq);
+		            
+		            result = pstmt.executeUpdate();
+		         }else if(seq.startsWith("A")){
+		            seq = seq.replace("A","");
+		            sql = "delete from personal_answers where aseq=?";
+		            pstmt = conn.prepareStatement(sql);
+		            pstmt.setString(1, seq);
+		            
+		            result = pstmt.executeUpdate();
+		         }
+		         if(result == 1) {
+		            flag = 0;
+		         }else {
+		            flag = 1;
+		         }
+		         
+		      } catch(SQLException e) {
+		         System.out.println("[�뿉�윭] : " + e.getMessage());
+		      } finally {
+		         if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+		         if(conn != null) try { conn.close(); } catch(SQLException e) {}
+		      }
+		      return flag;   
+		   }
+		   
+		   public int qnaMultiDelete(String seq) {
+		      
+		      Connection conn = null;
+		      PreparedStatement pstmt = null;
+		      
+		      int flag = 0;
+		      
+		      try {
+		         String[] seqarr = seq.split(",");
+		         conn = dataSource.getConnection();
+		         for(int i =0; i<seqarr.length;i++) {
+		                        
+		            String sql = "";
+		            
+		            
+		            if(seq.startsWith("Q")) {
+		               seq = seq.replace("Q","");
+		               sql = "delete from personal_answers where seq=?";
+		               pstmt = conn.prepareStatement(sql);
+		               pstmt.setString(1, seq);
+		               int result = pstmt.executeUpdate();
+		               
+		               sql = "delete from personal_question where seq=?";
+		               pstmt = conn.prepareStatement(sql);
+		               pstmt.setString(1, seq);
+		               
+		               flag += pstmt.executeUpdate();
+		            }else if(seq.startsWith("A")){
+		               seq = seq.replace("A","");
+		               sql = "delete from personal_answers where aseq=?";
+		               pstmt = conn.prepareStatement(sql);
+		               pstmt.setString(1, seq);
+		               
+		               flag += pstmt.executeUpdate();
+		            }
+		            
+		         }
+		      } catch(SQLException e) {
+		         System.out.println("[�뿉�윭] : " + e.getMessage());
+		      } finally {
+		         if(pstmt != null) try { pstmt.close(); } catch(SQLException e) {}
+		         if(conn != null) try { conn.close(); } catch(SQLException e) {}
+		      }
+		      return flag;   
+		   }
 	
 	public ArrayList<BoardTO> qnaview(String seq) {
 		Connection conn = null;

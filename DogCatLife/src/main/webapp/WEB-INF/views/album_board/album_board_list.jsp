@@ -69,7 +69,8 @@
 			sbHTML.append("</div>");
 			sbHTML.append("<div class='portfolio-description'>");
 			sbHTML.append("<h5 class='title'>");
-			sbHTML.append("<a href='./album_board_view.mysql?pseq=" + pseq + "'>" + subject + "</a>");
+			sbHTML.append("<a href='./album_board_view.mysql?pseq=" + pseq + "&cpage=" + cpage + "&seq=" + seq
+					+ "'>" + subject + "</a>");
 			sbHTML.append("</h5>");
 			sbHTML.append("<span class='category'>");
 			sbHTML.append("<span>");
