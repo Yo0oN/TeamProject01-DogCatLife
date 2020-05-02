@@ -5,7 +5,7 @@
 
 애완인들의 커뮤니티 사이트로
 
-jdk1.8, eclipse2019-12, tomcat8.0, spring framework, MariaDB 등을 이용하여 사용자페이지를 전부 제작하였습니다.
+jdk1.8, eclipse2019-12, tomcat8.0, spring framework, MariaDB 등을 이용하여 사용자페이지를 담당하였습니다.
 
 ![](./서류/사진/join.jpg)
 
