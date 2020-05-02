@@ -1,5 +1,6 @@
 # TeamProject01-DogCatLife
 > 2020.04 한달간 팀원들과 제작한 웹사이트입니다.
+[관련ppt](https://github.com/YoonJeong-Choi/TeamProject01-DogCatLife/blob/master/%EC%84%9C%EB%A5%98/01%EC%A7%91%EC%82%AC%EC%99%94%EB%83%A5%EB%A9%8D%EB%A9%8D-%EA%B3%84%ED%9A%8D%EC%84%9C.pptx)
 
 ![](./서류/사진/main.jpg)
 
