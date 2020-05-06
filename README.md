@@ -34,7 +34,7 @@ jdk1.8, eclipse2019-12, tomcat8.0, spring framework, MariaDB 등을 이용하여
 
 <hr>
 
-또한, AWS로 배포하였습니다.
+또한, AWS로 배포하였습니다.(2020.05.08 서버 중지)
 
 [DogCatLife](http://13.124.174.195/DogCatLife/)
 
